@@ -7,10 +7,11 @@ import okio.BufferedSource;
 
 import java.io.IOException;
 
-final class ImmutableBody implements Body {
+final class ImmutableBody extends Body {
   private final MediaType contentType;
   private final long contentLength;
   private final byte[] content;
+  private Buffer source;
 
   ImmutableBody(MediaType contentType, long contentLength, byte[] content) {
     this.contentType = contentType;
@@ -30,7 +31,8 @@ final class ImmutableBody implements Body {
 
   @Override
   public BufferedSource source() {
-    return new Buffer().write(content);
+    if (source == null) source = new Buffer().write(content);
+    return source;
   }
 
   @Override

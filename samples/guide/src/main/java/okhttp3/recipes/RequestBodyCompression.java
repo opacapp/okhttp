@@ -92,4 +92,5 @@ public final class RequestBodyCompression {
       };
     }
   }
+  body(new GsonBody(myPayment))
 }
